@@ -1,0 +1,45 @@
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio
+.vs/
+
+# ASP.NET Core
+appsettings.json
+
+# Logs
+*.log
+
+# NuGet packages
+*.nupkg
+packages/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Other files to ignore
+appsettings.Development.json
+appsettings.json
+launchSettings.json
+
+
+/Migrations
+
+
+## Thứ tự ưu tiên config (quan trọng)
+```
+appsettings.json          ← thấp nhất
+↓ bị ghi đè bởi
+appsettings.Development.json
+↓ bị ghi đè bởi
+User Secrets              ← development only
+↓ bị ghi đè bởi
+Environment Variables     ← cao nhất, dùng cho production
