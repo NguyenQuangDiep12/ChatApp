@@ -10,13 +10,17 @@ namespace ChatApp.Core.Models
     public class Room
     {
         public Guid Id { get; private set; }
+        public Guid UserId { get; private set; }
+        public User User { get; private set; } = null!;
         public string Name { get; private set; }
         public string Description { get; private set; }
         public PrivacyType PrivacyType { get; set; }
         public RoomType RoomType { get; set; }
+        public ICollection<InviteToken> InviteTokens { get; private set; } = new List<InviteToken>();
+        public ICollection<RoomMember> RoomMembers { get; private set; } = new List<RoomMember>();
+        public ICollection<Message> Messages { get; private set; } = new List<Message>();
         public Guid CreatedBy { get; private set; }
         public DateTime CreatedAt { get; private set; }
-        public ICollection<RoomMember> RoomMembers { get; private set; } = new List<RoomMember>();
         private Room() { }
         public Room(string Name, Guid OwnerRoom,string Description = "", PrivacyType Privacy = PrivacyType.PUBLIC)
         {

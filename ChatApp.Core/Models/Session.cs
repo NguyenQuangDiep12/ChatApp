@@ -6,24 +6,24 @@ using System.Threading.Tasks;
 
 namespace ChatApp.Core.Models
 {
-    public class Sessions
+    public class Session
     {
         public Guid Id { get; private set; }
         public Guid UserId { get; private set; }
-        public Users Users { get; private set; } = null!;
+        public User Users { get; private set; } = null!;
         public string Token { get; private set; } 
         public string DeviceInfo { get; private set; }
-        public bool Is_Active { get; private set; } = false;
+        public bool IsActive { get; private set; } = false;
         public DateTime ExpiresAt { get; private set; }
         public DateTime CreatedAt { get; private set; }
 
-        private Sessions() { }
-        public Sessions(string Token, string DeviceInfo) 
+        private Session() { }
+        public Session(string Token, string DeviceInfo) 
         {
             this.Id = Guid.NewGuid();
             this.Token = Token;
             this.DeviceInfo = DeviceInfo;
-            this.Is_Active = true;
+            this.IsActive = true;
             this.ExpiresAt = DateTime.UtcNow.AddDays(7);
             this.CreatedAt = DateTime.UtcNow;
         }

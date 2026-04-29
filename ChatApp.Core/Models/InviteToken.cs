@@ -12,12 +12,14 @@ namespace ChatApp.Core.Models
         public Guid RoomId { get; private set; }
         public Room Room { get; private set; } = null!;
         public Guid UserId { get; private set; }
-        public Users User { get; private set; } = null!;
+        public User User { get; private set; } = null!;
+        public Guid CreatedBy { get; private set; }
         public string Token { get; private set; }
         public string Note { get; private set; }
         public bool IsActive { get; private set; }
         public byte MaxUsage { get; private set; }
         public byte UseCount { get; private set; }
+        public ICollection<RoomMember> RoomMembers { get; private set; } = new List<RoomMember>();
         public DateTime ExpireAt { get; private set; }
         public DateTime CreatedAt { get; private set; }
 
