@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ChatApp.Core.Models
+﻿namespace ChatApp.Core.Models
 {
     public class InviteToken
     {
         public Guid Id { get; private set; }
         public Guid RoomId { get; private set; }
         public Room Room { get; private set; } = null!;
-        public Guid UserId { get; private set; }
-        public User User { get; private set; } = null!;
         public Guid CreatedBy { get; private set; }
-        public string Token { get; private set; }
-        public string Note { get; private set; }
+        public User Creator { get; private set; } = null!;
+        public string Token { get; private set; } = string.Empty;
+        public string Note { get; private set; } = string.Empty;
         public bool IsActive { get; private set; }
         public byte MaxUsage { get; private set; }
         public byte UseCount { get; private set; }
@@ -24,24 +17,40 @@ namespace ChatApp.Core.Models
         public DateTime CreatedAt { get; private set; }
 
         private InviteToken() { }
-        public InviteToken(string Token, string Note = "", byte MaxUsage = 10, byte UseCount = 0)
+
+        public InviteToken(Guid roomId, Guid createdBy, string token, string note = "", byte maxUsage = 10)
         {
-            this.Token = Token;
-            this.Note = Note;
-            this.MaxUsage = MaxUsage;
-            this.UseCount = UseCount;
+            this.Id = Guid.NewGuid();
+            this.RoomId = roomId;
+            this.CreatedBy = createdBy;
+            this.Token = token;
+            this.Note = note;
+            this.MaxUsage = maxUsage;
+            this.UseCount = 0;
             this.IsActive = true;
             this.ExpireAt = DateTime.UtcNow.AddMinutes(45);
             this.CreatedAt = DateTime.UtcNow;
         }
 
+        public bool IsExpired() => DateTime.UtcNow > ExpireAt;
+
+        public bool CanBeUsed() => IsActive && !IsExpired() && UseCount < MaxUsage;
+
         public void IncreaseUsage()
         {
-            if(UseCount < MaxUsage)
+            if (!CanBeUsed()) return;
+
+            this.UseCount++;
+
+            if (this.UseCount >= this.MaxUsage)
             {
-                this.UseCount++;
+                this.IsActive = false;
             }
-            IsActive = false;
+        }
+
+        public void Deactivate()
+        {
+            this.IsActive = false;
         }
     }
 }

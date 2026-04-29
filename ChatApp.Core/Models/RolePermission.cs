@@ -14,5 +14,11 @@ namespace ChatApp.Core.Models
         public Guid PermissionId { get; private set; }
         public Permission Permission { get; private set; } = null!;
         
+        private RolePermission() { }
+        public RolePermission(Permission Permission)
+        {
+            this.Id = Guid.NewGuid();
+            this.Permission = Permission;
+        }
     }
 }

@@ -1,47 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ChatApp.Core.Models
+﻿namespace ChatApp.Core.Models
 {
     public class Session
     {
         public Guid Id { get; private set; }
         public Guid UserId { get; private set; }
-        public User Users { get; private set; } = null!;
-        public string Token { get; private set; } 
-        public string DeviceInfo { get; private set; }
-        public bool IsActive { get; private set; } = false;
+        public User User { get; private set; } = null!;
+        public string Token { get; private set; } = string.Empty;
+        public string DeviceInfo { get; private set; } = string.Empty;
+        public bool IsActive { get; private set; }
         public DateTime ExpiresAt { get; private set; }
         public DateTime CreatedAt { get; private set; }
 
         private Session() { }
-        public Session(string Token, string DeviceInfo) 
+
+        public Session(Guid userId, string token, string deviceInfo)
         {
             this.Id = Guid.NewGuid();
-            this.Token = Token;
-            this.DeviceInfo = DeviceInfo;
+            this.UserId = userId;
+            this.Token = token;
+            this.DeviceInfo = deviceInfo;
             this.IsActive = true;
             this.ExpiresAt = DateTime.UtcNow.AddDays(7);
             this.CreatedAt = DateTime.UtcNow;
         }
 
-        public void RevorkToken()
+        public bool IsExpired() => DateTime.UtcNow > ExpiresAt;
+
+        public void RevokeToken()
         {
-            if(ExpiresAt > DateTime.UtcNow.AddDays(7))
-            {
-                Is_Active = false;
-            }
+            this.IsActive = false;
         }
 
         public void RenewToken()
         {
-            if(ExpiresAt < DateTime.UtcNow.AddDays(7))
-            {
-                Is_Active = true;
-            }
+            this.IsActive = true;
+            this.ExpiresAt = DateTime.UtcNow.AddDays(7);
         }
     }
 }
