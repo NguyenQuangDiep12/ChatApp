@@ -41,14 +41,6 @@ namespace ChatApp.Repository.Configurations
                 .WithMany(rm => rm.Roles)
                 .HasForeignKey(r => r.RoomId)
                 .OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(r => r.RolePermissions)
-                .WithOne()
-                .HasForeignKey(rp => rp.RoleId)
-                .OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(r => r.UserSystemRoles)
-                .WithOne()
-                .HasForeignKey(usr => usr.RoleId)
-                .OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(r => r.RoomMembers)
                 .WithOne(rm => rm.Role)
                 .HasForeignKey(rm => rm.RoleId)
@@ -68,7 +60,7 @@ namespace ChatApp.Repository.Configurations
             {
                 t.HasCheckConstraint(
                     "CK_Role_Scope_Room",
-                    "(Scope = 0 AND RoomId IS NULL) OR (Scope = 1 AND RoomId IS NOT NULL)"
+                    "(\"Scope\" = 0 AND \"RoomId\" IS NULL) OR (\"Scope\" = 1 AND \"RoomId\" IS NOT NULL)"
                 );
             });
         }

@@ -39,30 +39,6 @@ namespace ChatApp.Repository.Configurations
             builder.Property(x => x.CreatedAt)
                 .IsRequired();
 
-            builder.HasOne(u => u.UserSettings)
-                .WithOne() // unidirectional 
-                .HasForeignKey<UserSetting>("UserId")
-                .OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(u => u.Sessions)
-                .WithOne()
-                .HasForeignKey(s => s.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(u => u.Notifications)
-                .WithOne()
-                .HasForeignKey(s => s.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(u => u.MessageReads)
-                .WithOne()
-                .HasForeignKey(s => s.UserId);
-            builder.HasMany(u => u.UserSystemRoles)
-                .WithOne()
-                .HasForeignKey(s => s.UserId);
-            builder.HasMany(u => u.InviteTokens)
-                .WithOne()
-                .HasForeignKey(s => s.CreatedBy);
-            builder.HasMany(u => u.Messages)
-                .WithOne()
-                .HasForeignKey(s => s.SenderId);
             builder.HasMany(u => u.RoomMembers)
                 .WithOne(x => x.User) // bidirection
                 .HasForeignKey(s => s.UserId);

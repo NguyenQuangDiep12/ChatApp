@@ -30,7 +30,7 @@ namespace ChatApp.Repository.Configurations
                 .HasForeignKey(n => n.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(n => n.Message)
-                .WithMany()
+                .WithMany(m => m.Notifications)
                 .HasForeignKey(n => n.MessageId)
                 .OnDelete(DeleteBehavior.Cascade);
 

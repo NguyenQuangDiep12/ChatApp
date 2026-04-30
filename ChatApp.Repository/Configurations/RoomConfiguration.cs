@@ -35,26 +35,6 @@ namespace ChatApp.Repository.Configurations
                 .IsRequired();
             builder.Property(r => r.CreatedAt)
                 .IsRequired();
-
-            builder.HasOne(r => r.Creator)
-                .WithMany()
-                .HasForeignKey(r => r.CreatedBy)
-                .OnDelete(DeleteBehavior.Restrict);
-            builder.HasMany(r => r.InviteTokens)
-                .WithOne()
-                .HasForeignKey(i => i.RoomId)
-                .OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(r => r.Messages)
-                .WithOne()
-                .HasForeignKey(it => it.RoomId)
-                .OnDelete(DeleteBehavior.Cascade);
-            builder.HasMany(r => r.RoomMembers)
-                .WithOne(rm => rm.Room)
-                .HasForeignKey(rm => rm.RoomId);
-            builder.HasMany(r => r.Roles)
-                .WithOne()
-                .HasForeignKey(rl => rl.RoomId)
-                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

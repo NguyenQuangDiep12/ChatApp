@@ -8,10 +8,11 @@ namespace ChatApp.Repository.Configurations
     {
         public void Configure(EntityTypeBuilder<UserSystemRole> builder)
         {
+            builder.ToTable("user_system_roles");
             builder.HasKey(x => x.Id);
-
             builder.Property(x => x.Id)
                 .ValueGeneratedNever();
+
             builder.Property(x => x.UserId)
                 .IsRequired();
             builder.Property(x => x.RoleId)
@@ -29,23 +30,12 @@ namespace ChatApp.Repository.Configurations
                 .WithMany(r => r.UserSystemRoles)
                 .HasForeignKey(x => x.RoleId)
                 .OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne<User>()
-                .WithMany()
-                .HasForeignKey(x => x.AssignedBy)
-                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasIndex(x => new { x.UserId, x.RoleId })
                 .IsUnique();
 
             builder.HasIndex(x => x.RoleId);
 
-            builder.ToTable("user_system_roles", t =>
-            {
-                t.HasCheckConstraint(
-                    "CK_UserSystemRole_SystemScope",
-                    "RoleId IN (SELECT Id FROM roles WHERE Scope = 0)"
-                );
-            });
         }
     }
 }

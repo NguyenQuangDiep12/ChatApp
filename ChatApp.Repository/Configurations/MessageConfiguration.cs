@@ -51,24 +51,6 @@ namespace ChatApp.Repository.Configurations
                 .HasForeignKey(m => m.ReplyToId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Attachments
-            builder.HasMany(m => m.Attachments)
-                .WithOne()
-                .HasForeignKey(a => a.MessageId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            // MessageReads
-            builder.HasMany(m => m.ReadMessages)
-                .WithOne(mr => mr.Message)
-                .HasForeignKey(mr => mr.MessageId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            // Notifications
-            builder.HasMany(m => m.Notifications)
-                .WithOne(n => n.Message)
-                .HasForeignKey(n => n.MessageId)
-                .OnDelete(DeleteBehavior.Cascade);
-
             // Indexes
             // Query theo room (timeline)
             builder.HasIndex(m => m.RoomId);

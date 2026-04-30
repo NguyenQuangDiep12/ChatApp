@@ -33,14 +33,6 @@ namespace ChatApp.Repository.Configurations
                 .WithMany(u => u.RoomMembers)
                 .HasForeignKey(rm => rm.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(rm => rm.Role)
-                .WithMany()
-                .HasForeignKey(rm => rm.RoleId)
-                .OnDelete(DeleteBehavior.Restrict);
-            builder.HasOne(rm => rm.InviteToken)
-                .WithMany()
-                .HasForeignKey(rm => rm.InviteTokenId)
-                .OnDelete(DeleteBehavior.SetNull);
 
             // Unique constraint: 1 user chỉ có 1 record trong 1 room
             builder.HasIndex(rm => new { rm.RoomId, rm.UserId })
