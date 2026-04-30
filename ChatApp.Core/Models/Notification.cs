@@ -1,9 +1,4 @@
 ﻿using ChatApp.Core.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChatApp.Core.Models
 {
@@ -17,5 +12,19 @@ namespace ChatApp.Core.Models
         public NotificationType Type { get; private set; }
         public bool IsRead { get; private set; }
         public DateTime CreatedAt { get; private set; }
+
+        private Notification() { }
+
+        public Notification(Guid userId, Guid messageId, NotificationType type)
+        {
+            this.Id = Guid.NewGuid();
+            this.UserId = userId;
+            this.MessageId = messageId;
+            this.Type = type;
+            this.IsRead = false;
+            this.CreatedAt = DateTime.UtcNow;
+        }
+
+        public void MarkAsRead() => this.IsRead = true;
     }
 }

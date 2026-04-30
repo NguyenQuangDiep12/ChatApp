@@ -7,7 +7,9 @@ namespace ChatApp.Core.Models
         public Guid Id { get; private set; }
         public string Name { get; private set; } = string.Empty;
         public string Description { get; private set; } = string.Empty;
-        public RoleScope RoleScope { get; private set; }
+        public RoleScope Scope { get; private set; }
+        public Guid? RoomId { get; private set; }
+        public Room? Room { get; private set; }
         public bool IsCustom { get; private set; }
         public bool IsSystemDefault { get; private set; }
         public byte Priority { get; private set; }
@@ -19,16 +21,33 @@ namespace ChatApp.Core.Models
 
         private Role() { }
 
-        public Role(string name, RoleScope scope, string description = "", byte priority = 0, string color = "", bool isCustom = true, bool isSystemDefault = false)
+        /// <summary> Tạo system role (SuperAdmin, Moderator, User...)</summary>
+        public Role(string name, string description = "", byte priority = 0, string color = "", bool isSystemDefault = false)
         {
             this.Id = Guid.NewGuid();
             this.Name = name;
-            this.RoleScope = scope;
             this.Description = description;
+            this.Scope = RoleScope.System;
+            this.RoomId = null;
+            this.Priority = priority;
+            this.Color = color;
+            this.IsCustom = false;
+            this.IsSystemDefault = isSystemDefault;
+            this.CreatedAt = DateTime.UtcNow;
+        }
+
+        /// <summary> Tạo room role (Owner, Admin, Member hoặc custom role trong phòng)</summary>
+        public Role(string name, Guid roomId, string description = "", byte priority = 0, string color = "", bool isCustom = true)
+        {
+            this.Id = Guid.NewGuid();
+            this.Name = name;
+            this.Description = description;
+            this.Scope = RoleScope.Room;
+            this.RoomId = roomId;
             this.Priority = priority;
             this.Color = color;
             this.IsCustom = isCustom;
-            this.IsSystemDefault = isSystemDefault;
+            this.IsSystemDefault = false;
             this.CreatedAt = DateTime.UtcNow;
         }
 

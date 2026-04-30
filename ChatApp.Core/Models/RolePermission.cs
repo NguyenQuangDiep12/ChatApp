@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ChatApp.Core.Models
+﻿namespace ChatApp.Core.Models
 {
     public class RolePermission
     {
@@ -13,12 +7,14 @@ namespace ChatApp.Core.Models
         public Role Role { get; private set; } = null!;
         public Guid PermissionId { get; private set; }
         public Permission Permission { get; private set; } = null!;
-        
+
         private RolePermission() { }
-        public RolePermission(Permission Permission)
+
+        public RolePermission(Guid roleId, Guid permissionId)
         {
             this.Id = Guid.NewGuid();
-            this.Permission = Permission;
+            this.RoleId = roleId;
+            this.PermissionId = permissionId;
         }
     }
 }

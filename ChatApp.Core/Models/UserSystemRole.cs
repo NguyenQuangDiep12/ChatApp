@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ChatApp.Core.Models
+﻿namespace ChatApp.Core.Models
 {
     public class UserSystemRole
     {
@@ -12,16 +6,19 @@ namespace ChatApp.Core.Models
         public Guid UserId { get; private set; }
         public User User { get; private set; } = null!;
         public Guid RoleId { get; private set; }
-        public Role Role {  get; private set; } = null!;
+        public Role Role { get; private set; } = null!;
         public Guid AssignedBy { get; private set; }
         public DateTime CreatedAt { get; private set; }
+
         private UserSystemRole() { }
-        public UserSystemRole(Guid AssignedBy)
+
+        public UserSystemRole(Guid userId, Guid roleId, Guid assignedBy)
         {
             this.Id = Guid.NewGuid();
-            this.AssignedBy = AssignedBy;
+            this.UserId = userId;
+            this.RoleId = roleId;
+            this.AssignedBy = assignedBy;
             this.CreatedAt = DateTime.UtcNow;
         }
-
     }
 }

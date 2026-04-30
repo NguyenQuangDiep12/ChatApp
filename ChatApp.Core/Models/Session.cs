@@ -31,8 +31,9 @@
             this.IsActive = false;
         }
 
-        public void RenewToken()
+        public void RenewToken(string newToken)
         {
+            this.Token = newToken;
             this.IsActive = true;
             this.ExpiresAt = DateTime.UtcNow.AddDays(7);
         }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ChatApp.Core.Models
+﻿namespace ChatApp.Core.Models
 {
     public class MessageRead
     {
@@ -15,5 +9,14 @@ namespace ChatApp.Core.Models
         public Message Message { get; private set; } = null!;
         public DateTime ReadAt { get; private set; }
 
+        private MessageRead() { }
+
+        public MessageRead(Guid userId, Guid messageId)
+        {
+            this.Id = Guid.NewGuid();
+            this.UserId = userId;
+            this.MessageId = messageId;
+            this.ReadAt = DateTime.UtcNow;
+        }
     }
 }

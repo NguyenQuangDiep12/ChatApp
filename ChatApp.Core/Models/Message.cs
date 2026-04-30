@@ -1,9 +1,4 @@
 ﻿using ChatApp.Core.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChatApp.Core.Models
 {
@@ -22,9 +17,39 @@ namespace ChatApp.Core.Models
         public bool IsDeleted { get; private set; }
         public ICollection<Message> Replies { get; private set; } = new List<Message>();
         public ICollection<Attachment> Attachments { get; private set; } = new List<Attachment>();
-        public ICollection<MessageRead> ReadMessage { get; private set; } = new HashSet<MessageRead>();
-        public ICollection<Notification> Notification { get; private set; } = new HashSet<Notification>();
+        public ICollection<MessageRead> ReadMessages { get; private set; } = new List<MessageRead>();
+        public ICollection<Notification> Notifications { get; private set; } = new List<Notification>();
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
+
+        private Message() { }
+
+        public Message(Guid senderId, Guid roomId, string content, MessageType type = MessageType.Text, Guid? replyToId = null)
+        {
+            this.Id = Guid.NewGuid();
+            this.SenderId = senderId;
+            this.RoomId = roomId;
+            this.Content = content;
+            this.Type = type;
+            this.ReplyToId = replyToId;
+            this.IsEdited = false;
+            this.IsDeleted = false;
+            this.CreatedAt = DateTime.UtcNow;
+            this.UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void Edit(string newContent)
+        {
+            this.Content = newContent;
+            this.IsEdited = true;
+            this.UpdatedAt = DateTime.UtcNow;
+        }
+
+        public void Delete()
+        {
+            this.IsDeleted = true;
+            this.Content = string.Empty;
+            this.UpdatedAt = DateTime.UtcNow;
+        }
     }
 }

@@ -1,53 +1,55 @@
 ﻿using ChatApp.Core.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChatApp.Core.Models
 {
     public class Room
     {
         public Guid Id { get; private set; }
-        public Guid UserId { get; private set; }
-        public User User { get; private set; } = null!;
-        public string Name { get; private set; }
-        public string Description { get; private set; }
-        public PrivacyType PrivacyType { get; set; }
-        public RoomType RoomType { get; set; }
+        public string Name { get; private set; } = string.Empty;
+        public string Description { get; private set; } = string.Empty;
+        public PrivacyType PrivacyType { get; private set; }
+        public RoomType RoomType { get; private set; }
+        public string? PasswordHash { get; private set; }
+        public Guid CreatedBy { get; private set; }
+        public User Creator { get; private set; } = null!;
         public ICollection<InviteToken> InviteTokens { get; private set; } = new List<InviteToken>();
         public ICollection<RoomMember> RoomMembers { get; private set; } = new List<RoomMember>();
         public ICollection<Message> Messages { get; private set; } = new List<Message>();
-        public Guid CreatedBy { get; private set; }
+        public ICollection<Role> Roles { get; private set; } = new List<Role>();
         public DateTime CreatedAt { get; private set; }
+
         private Room() { }
-        public Room(string Name, Guid OwnerRoom,string Description = "", PrivacyType Privacy = PrivacyType.PUBLIC)
+
+        public Room(string name, Guid createdBy, RoomType roomType = RoomType.GROUP,
+                    PrivacyType privacyType = PrivacyType.PUBLIC, string description = "")
         {
             this.Id = Guid.NewGuid();
-            this.Name = Name;
-            this.Description = Description;
-            this.PrivacyType = Privacy;
-            this.CreatedBy = OwnerRoom;
+            this.Name = name;
+            this.Description = description;
+            this.RoomType = roomType;
+            this.PrivacyType = privacyType;
+            this.CreatedBy = createdBy;
             this.CreatedAt = DateTime.UtcNow;
         }
 
-        public void Rename(string name)
+        public void Rename(string name) => this.Name = name;
+
+        public void ChangeDescription(string description) => this.Description = description;
+
+        public void ChangePrivacy(PrivacyType type)
         {
-            this.Name = name;
-        }
-        public void ChangeDescription(string Description)
-        {
-            this.Description = Description;
-        }
-        public void AddMember(RoomMember RoomMember)
-        {
-            this.RoomMembers.Add(RoomMember);
+            this.PrivacyType = type;
+            if (type != PrivacyType.PASSWORD)
+                this.PasswordHash = null;
         }
 
-        public void RemoveMember(RoomMember RoomMember)
+        public void SetPassword(string passwordHash)
         {
-            this.RoomMembers.Remove(RoomMember);
+            this.PasswordHash = passwordHash;
         }
+
+        public void AddMember(RoomMember roomMember) => this.RoomMembers.Add(roomMember);
+
+        public void RemoveMember(RoomMember roomMember) => this.RoomMembers.Remove(roomMember);
     }
 }
