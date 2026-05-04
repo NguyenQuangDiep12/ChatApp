@@ -39,7 +39,7 @@
 
 ## Design Entity - Relationship Model
 - Mo hinh moi quan he giua cac thuc the duoc the hien nhu sau:
-- https://drive.google.com/file/d/1DIQRr0dgIuNAqvLhSiCYgwC156nN-hMb/view?usp=sharing
+- ![img](ChatApp.ERD.png)
 
 
 ## Design Business Flow API
