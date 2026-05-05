@@ -25,7 +25,7 @@
 *CORE LAYER*
 - Overview: Phát triển logic nghiệp vụ với sự trừu tượng hóa. Giao diện điều khiển các yêu cầu nghiệp vụ với việc triển khai đơn giản. 
 - Dự án Core là trung tâm của thiết kế Kiến trúc Sạch, và tất cả các dự án phụ thuộc khác đều phải hướng về nó.
-- ![img](NLayerArchitecture.Core.png)
+- ![img](NLayerArchitecture.Repository.png)
 
 *BUSINESS / SERVICE LOGIC LAYER*
 - Overview: Lớp này cần xử lý tất cả logic chuyên biệt của ứng dụng, nhờ đó toàn bộ logic được tập trung tại một vị trí để dễ dàng quản lý. 
@@ -39,7 +39,7 @@
 
 ## Design Entity - Relationship Model
 - Mo hinh moi quan he giua cac thuc the duoc the hien nhu sau:
-- ![img](ChatApp.ERD.png)
+- https://drive.google.com/file/d/1DIQRr0dgIuNAqvLhSiCYgwC156nN-hMb/view?usp=sharing
 
 
 ## Design Business Flow API
