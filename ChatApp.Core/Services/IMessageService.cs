@@ -1,16 +1,15 @@
-﻿using ChatApp.Core.Models;
-using NLayerArchitecture.Core.Services;
-
+using ChatApp.Core.Models;
 namespace ChatApp.Core.Services
 {
     public interface IMessageService : IService<Message>
     {
-        Task<Message?> GetByIdWithAttachmentsAsync(int id);
-        Task<IEnumerable<Message>> GetMessagesByRoomIdAsync(int roomId, int skip, int take);
-        Task<IEnumerable<Message>> GetRepliesAsync(int replyToId);
-        Task<int> GetUnreadCountAsync(int roomId, int userId);
-        Task<Message> SendMessageAsync(int roomId, int senderId, string content, string type, int? replyToId = null);
-        Task EditMessageAsync(int messageId, int requesterId, string newContent);
-        Task SoftDeleteAsync(int messageId, int requesterId);
+        Task<Message?> GetByIdWithAttachmentsAsync(Guid id);
+        Task<(IEnumerable<Message> Items, bool HasMore)> GetMessagesByRoomIdAsync(Guid roomId, Guid? cursor, int limit);
+        Task<IEnumerable<Message>> GetRepliesAsync(Guid replyToId);
+        Task<int> GetUnreadCountAsync(Guid roomId, Guid userId);
+        Task<Message> SendMessageAsync(Guid roomId, Guid senderId, string content, string type, Guid? replyToId = null);
+        Task EditMessageAsync(Guid messageId, Guid requesterId, string newContent);
+        Task SoftDeleteAsync(Guid messageId, Guid requesterId);
     }
 }
+

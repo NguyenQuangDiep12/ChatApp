@@ -1,10 +1,10 @@
 ﻿using System.Linq.Expressions;
 
-namespace NLayerArchitecture.Core.Services
+namespace ChatApp.Core.Services
 {
     public interface IService<T> where T : class
     {
-        Task<T> GetByIdAsync(int id);
+        Task<T> GetByIdAsync(Guid id);
 
         Task<IEnumerable<T>> GetAllAsync();
 
