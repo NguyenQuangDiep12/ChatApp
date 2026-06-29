@@ -302,6 +302,20 @@ namespace ChatApp.Repository.Migrations
                         {
                             t.HasCheckConstraint("CK_Role_Scope_Room", "(\"Scope\" = 0 AND \"RoomId\" IS NULL) OR (\"Scope\" = 1 AND \"RoomId\" IS NOT NULL)");
                         });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000001"),
+                            Color = "",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Default system user role",
+                            IsCustom = false,
+                            IsSystemDefault = true,
+                            Name = "User",
+                            Priority = (byte)0,
+                            Scope = 0
+                        });
                 });
 
             modelBuilder.Entity("ChatApp.Core.Models.RolePermission", b =>

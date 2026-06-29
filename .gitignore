@@ -13,6 +13,7 @@ obj/
 
 # ASP.NET Core
 appsettings.json
+ChatApp.Repository/Migrations
 
 # Logs
 *.log
