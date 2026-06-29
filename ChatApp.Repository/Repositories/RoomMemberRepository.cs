@@ -1,8 +1,6 @@
-﻿using ChatApp.Core.Models;
+using ChatApp.Core.Models;
 using ChatApp.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
-using NLayerArchitecture.Repository.Repositories;
-
 namespace ChatApp.Repository.Repositories
 {
     public class RoomMemberRepository : GenericRepository<RoomMember>, IRoomMemberRepository
@@ -38,7 +36,7 @@ namespace ChatApp.Repository.Repositories
 
             if (member is not null)
             {
-                member.LastReadAt = DateTime.UtcNow;
+                member.UpdateLastReadAt();
                 _context.RoomMembers.Update(member);
             }
         }

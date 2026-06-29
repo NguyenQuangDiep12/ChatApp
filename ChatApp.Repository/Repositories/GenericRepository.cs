@@ -1,10 +1,10 @@
-﻿using ChatApp.Core.Repositories;
+using ChatApp.Core.Repositories;
 using ChatApp.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 
-namespace NLayerArchitecture.Repository.Repositories
+namespace ChatApp.Repository.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
@@ -17,7 +17,7 @@ namespace NLayerArchitecture.Repository.Repositories
             _dbSet = _context.Set<T>();
         }
 
-        public async Task<T?> GetByIdAsync(int id)
+        public async Task<T?> GetByIdAsync(Guid id)
         {
             return await _dbSet.FindAsync(id);
         }
@@ -59,7 +59,7 @@ namespace NLayerArchitecture.Repository.Repositories
 
         public void RemoveRange(IEnumerable<T> entities)
         {
-            _dbSet.RemoveRange();
+            _dbSet.RemoveRange(entities);
         }
     }
 }

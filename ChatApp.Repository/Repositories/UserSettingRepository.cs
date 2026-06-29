@@ -1,8 +1,6 @@
 ﻿using ChatApp.Core.Models;
 using ChatApp.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
-using NLayerArchitecture.Repository.Repositories;
-
 namespace ChatApp.Repository.Repositories
 {
     public class UserSettingsRepository : GenericRepository<UserSetting>, IUserSettingsRepository

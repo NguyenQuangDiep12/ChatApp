@@ -1,8 +1,6 @@
-﻿using ChatApp.Core.Models;
+using ChatApp.Core.Models;
 using ChatApp.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
-using NLayerArchitecture.Repository.Repositories;
-
 namespace ChatApp.Repository.Repositories
 {
     public class MessageReadRepository : GenericRepository<MessageRead>, IMessageReadRepository
@@ -29,12 +27,7 @@ namespace ChatApp.Repository.Repositories
             var alreadyRead = await IsReadByUserAsync(messageId, userId);
             if (!alreadyRead)
             {
-                await _context.MessageReads.AddAsync(new MessageRead
-                {
-                    MessageId = messageId,
-                    UserId = userId,
-                    ReadAt = DateTime.UtcNow
-                });
+                await _context.MessageReads.AddAsync(new MessageRead(userId, messageId));
             }
         }
     }

@@ -1,8 +1,6 @@
-﻿using ChatApp.Core.Models;
+using ChatApp.Core.Models;
 using ChatApp.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
-using NLayerArchitecture.Repository.Repositories;
-
 namespace ChatApp.Repository.Repositories
 {
     public class InviteTokenRepository : GenericRepository<InviteToken>, IInviteTokenRepository
@@ -16,7 +14,7 @@ namespace ChatApp.Repository.Repositories
             => await _context.InviteTokens
                 .Where(it => it.RoomId == roomId &&
                              it.IsActive &&
-                             (it.ExpiresAt == null || it.ExpiresAt > DateTime.UtcNow))
+                             it.ExpireAt > DateTime.UtcNow)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -24,17 +22,15 @@ namespace ChatApp.Repository.Repositories
             => await _context.InviteTokens.AnyAsync(it =>
                 it.Token == token &&
                 it.IsActive &&
-                (it.MaxUses == null || it.UseCount < it.MaxUses) &&
-                (it.ExpiresAt == null || it.ExpiresAt > DateTime.UtcNow));
+                (it.MaxUsage == 0 || it.UseCount < it.MaxUsage) &&
+                it.ExpireAt > DateTime.UtcNow);
 
         public async Task IncrementUseCountAsync(Guid id)
         {
             var inviteToken = await _context.InviteTokens.FindAsync(id);
             if (inviteToken is not null)
             {
-                inviteToken.UseCount++;
-                if (inviteToken.MaxUses.HasValue && inviteToken.UseCount >= inviteToken.MaxUses)
-                    inviteToken.IsActive = false;
+                inviteToken.IncreaseUsage();
 
                 _context.InviteTokens.Update(inviteToken);
             }

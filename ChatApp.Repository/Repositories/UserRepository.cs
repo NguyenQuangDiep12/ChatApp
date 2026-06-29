@@ -1,8 +1,8 @@
-﻿using ChatApp.Core.Models;
+using ChatApp.Core.Models;
 using ChatApp.Core.Models.Enums;
 using ChatApp.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
-using NLayerArchitecture.Repository.Repositories;
+
 
 namespace ChatApp.Repository.Repositories
 {
@@ -33,9 +33,5 @@ namespace ChatApp.Repository.Repositories
         public async Task<bool> IsUsernameTakenAsync(string username)
             => await _context.Users.AnyAsync(u => u.UserName == username);
 
-        public Task<User?> GetByIdWithSettingsAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -1,8 +1,6 @@
-﻿using ChatApp.Core.Models;
+using ChatApp.Core.Models;
 using ChatApp.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
-using NLayerArchitecture.Repository.Repositories;
-
 namespace ChatApp.Repository.Repositories
 {
     public class SessionRepository : GenericRepository<Session>, ISessionRepository
@@ -24,7 +22,7 @@ namespace ChatApp.Repository.Repositories
                 .Where(s => s.UserId == userId && s.IsActive)
                 .ToListAsync();
 
-            sessions.ForEach(s => s.IsActive = false);
+            sessions.ForEach(s => s.RevokeToken());
             _context.Sessions.UpdateRange(sessions);
         }
 

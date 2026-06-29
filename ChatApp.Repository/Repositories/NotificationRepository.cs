@@ -1,8 +1,6 @@
-﻿using ChatApp.Core.Models;
+using ChatApp.Core.Models;
 using ChatApp.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
-using NLayerArchitecture.Repository.Repositories;
-
 namespace ChatApp.Repository.Repositories
 {
     public class NotificationRepository : GenericRepository<Notification>, INotificationRepository
@@ -33,7 +31,7 @@ namespace ChatApp.Repository.Repositories
                 .Where(n => n.UserId == userId && !n.IsRead)
                 .ToListAsync();
 
-            notifications.ForEach(n => n.IsRead = true);
+            notifications.ForEach(n => n.MarkAsRead());
             _context.Notifications.UpdateRange(notifications);
         }
     }

@@ -2,8 +2,6 @@
 using ChatApp.Core.Models.Enums;
 using ChatApp.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
-using NLayerArchitecture.Repository.Repositories;
-
 namespace ChatApp.Repository.Repositories
 {
     public class PermissionRepository : GenericRepository<Permission>, IPermissionRepository
