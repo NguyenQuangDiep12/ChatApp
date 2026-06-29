@@ -1,11 +1,11 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 
 
 namespace ChatApp.Core.Repositories
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<T> GetByIdAsync(int id);
+        Task<T?> GetByIdAsync(Guid id);
 
         IQueryable<T> GetAll();
 
