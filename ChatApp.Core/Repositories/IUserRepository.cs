@@ -1,4 +1,4 @@
-﻿using ChatApp.Core.Models;
+using ChatApp.Core.Models;
 
 namespace ChatApp.Core.Repositories
 {
@@ -6,7 +6,7 @@ namespace ChatApp.Core.Repositories
     {
         Task<User?> GetByEmailAsync(string email);
         Task<User?> GetByUsernameAsync(string username);
-        Task<User?> GetByIdWithSettingsAsync(int id);
+        Task<User?> GetByIdWithSettingsAsync(Guid id);
         Task<IEnumerable<User>> GetOnlineUsersAsync();
         Task<bool> IsEmailTakenAsync(string email);
         Task<bool> IsUsernameTakenAsync(string username);

@@ -4,8 +4,8 @@ namespace ChatApp.Core.Repositories
 {
     public interface IUserSystemRoleRepository : IGenericRepository<UserSystemRole>
     {
-        Task<IEnumerable<UserSystemRole>> GetByUserIdAsync(int userId);
-        Task<IEnumerable<UserSystemRole>> GetByRoleIdAsync(int roleId);
-        Task<bool> UserHasRoleAsync(int userId, int roleId);
+        Task<IEnumerable<UserSystemRole>> GetByUserIdAsync(Guid userId);
+        Task<IEnumerable<UserSystemRole>> GetByRoleIdAsync(Guid roleId);
+        Task<bool> UserHasRoleAsync(Guid userId, Guid roleId);
     }
 }

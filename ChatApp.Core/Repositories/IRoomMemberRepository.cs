@@ -4,10 +4,10 @@ namespace ChatApp.Core.Repositories
 {
     public interface IRoomMemberRepository : IGenericRepository<RoomMember>
     {
-        Task<RoomMember?> GetByRoomAndUserAsync(int roomId, int userId);
-        Task<IEnumerable<RoomMember>> GetMembersByRoomIdAsync(int roomId);
-        Task<IEnumerable<RoomMember>> GetRoomsByUserIdAsync(int userId);
-        Task<bool> IsMemberAsync(int roomId, int userId);
-        Task UpdateLastReadAtAsync(int roomId, int userId);
+        Task<RoomMember?> GetByRoomAndUserAsync(Guid roomId, Guid userId);
+        Task<IEnumerable<RoomMember>> GetMembersByRoomIdAsync(Guid roomId);
+        Task<IEnumerable<RoomMember>> GetRoomsByUserIdAsync(Guid userId);
+        Task<bool> IsMemberAsync(Guid roomId, Guid userId);
+        Task UpdateLastReadAtAsync(Guid roomId, Guid userId);
     }
 }
