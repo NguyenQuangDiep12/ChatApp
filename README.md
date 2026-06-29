@@ -8,11 +8,88 @@
 *Frontend* ReactJs(Vite), TailwindCss.
 *Database* PostgreSQL 14
 
-## Huong dan cai dat
-1. Lenh Clone du an: git clone ["http"]
-2. Cau hinh ConnectionString trong `appsettings.json`
-3. Chay Migrations: `dotnet ef database update --project ChatApp.Repository --startup-project ChatApp.API`
-4. Run du an: `dotnet run`
+## Hướng dẫn cài đặt
+
+### 1. Clone dự án
+
+```bash
+git clone <repo-url>
+cd ChatApp
+```
+
+### 2. Cấu hình PostgreSQL
+
+Đảm bảo bạn đã cài đặt PostgreSQL và tạo database `ChatApp`.
+
+Mở file `appsettings.json` trong project `ChatApp.API` và cấu hình:
+
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Host=localhost;Port=5432;Database=ChatApp;Username=***;Password=***"
+}
+```
+
+---
+
+### Lưu ý
+
+* `Host`: địa chỉ server (mặc định: `localhost`)
+* `Port`: cổng PostgreSQL (mặc định: `5432`)
+* `Database`: tên database (cần tạo trước)
+* `Username` / `Password`: tài khoản PostgreSQL của bạn
+
+---
+
+### Tạo database (nếu chưa có)
+
+Bạn có thể tạo nhanh bằng lệnh:
+
+```bash
+createdb ChatApp
+```
+
+hoặc dùng pgAdmin để tạo thủ công.
+
+---
+
+### Test kết nối (khuyến khích)
+
+```bash
+psql -U postgres -d ChatApp
+```
+
+Nếu vào được shell PostgreSQL là OK.
+
+---
+
+### 3. Tạo và áp dụng Migration
+
+Nếu project **chưa có migration**, chạy:
+
+```bash
+dotnet ef migrations add InitialCreate \
+--project ChatApp.Repository \
+--startup-project ChatApp.API
+```
+
+Sau đó:
+
+```bash
+dotnet ef database update \
+--project ChatApp.Repository \
+--startup-project ChatApp.API
+```
+
+> Nếu project đã có sẵn migration, chỉ cần chạy `database update`.
+
+---
+
+### 4. Chạy ứng dụng
+
+```bash
+dotnet run --project ChatApp.API
+```
+
 
 ## Kien truc cua du an
 -- Kien truc duoc xay dung tren Kien truc NLayer Architecture duoc lay cam hung tu Project `https://github.com/BerkayKulak/NLayerArchitecture`
