@@ -4,7 +4,7 @@ namespace ChatApp.Core.Repositories
 {
     public interface IAttachmentRepository : IGenericRepository<Attachment>
     {
-        Task<IEnumerable<Attachment>> GetByMessageIdAsync(int messageId);
-        Task<IEnumerable<Attachment>> GetByFileTypeAsync(int roomId, string fileType);
+        Task<IEnumerable<Attachment>> GetByMessageIdAsync(Guid messageId);
+        Task<IEnumerable<Attachment>> GetByFileTypeAsync(Guid roomId, string fileType);
     }
 }
