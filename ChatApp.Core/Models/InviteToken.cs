@@ -1,4 +1,4 @@
-﻿namespace ChatApp.Core.Models
+namespace ChatApp.Core.Models
 {
     public class InviteToken
     {
@@ -46,6 +46,11 @@
             {
                 this.IsActive = false;
             }
+        }
+
+        public void SetExpiration(DateTime expiresAt)
+        {
+            this.ExpireAt = expiresAt;
         }
 
         public void Deactivate()
