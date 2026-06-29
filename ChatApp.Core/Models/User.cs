@@ -1,4 +1,4 @@
-﻿using ChatApp.Core.Models.Enums;
+using ChatApp.Core.Models.Enums;
 
 namespace ChatApp.Core.Models
 {
@@ -25,11 +25,13 @@ namespace ChatApp.Core.Models
 
         private User() { }
 
-        public User(string userName, string email)
+        public User(string userName, string email, string passwordHash)
         {
             this.Id = Guid.NewGuid();
             this.UserName = userName;
             this.Email = email;
+            this.PasswordHash = passwordHash;
+            this.UserSettings = UserSetting.CreateDefault(this.Id);
             this.CreatedAt = DateTime.UtcNow;
         }
 
