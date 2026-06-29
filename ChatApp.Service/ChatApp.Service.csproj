@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 
   <PropertyGroup>
@@ -10,6 +10,12 @@
 	<ItemGroup>
 		<ProjectReference Include="..\ChatApp.Repository\ChatApp.Repository.csproj" />
 	</ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+        <PackageReference Include="Mapster" Version="7.4.0" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.0" />
+    </ItemGroup>
 
 
 </Project>
