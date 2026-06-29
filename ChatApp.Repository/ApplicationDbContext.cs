@@ -17,7 +17,7 @@ namespace ChatApp.Repository
         public DbSet<UserSystemRole> SystemRoles { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<RoomMember> RoomsMembers { get; set; }
+        public DbSet<RoomMember> RoomMembers { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
